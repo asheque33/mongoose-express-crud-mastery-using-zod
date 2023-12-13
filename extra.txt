@@ -1,0 +1,30 @@
+const hobbiesSchema = new Schema<userHobbies>([
+//   {
+//     type: String,
+//     enum: [
+//       'Reading',
+//       'Writing',
+//       'Cooking',
+//       'Gardening',
+//       'Cycling',
+//       'Fishing',
+//       'Exercise',
+//       'Swimming',
+//       'Walking',
+//       'Playing',
+//     ],
+//   },
+// ]);
+
+// export type userHobbies = [
+//   | 'Reading'
+//   | 'Writing'
+//   | 'Cooking'
+//   | 'Gardening'
+//   | 'Cycling'
+//   | 'Fishing'
+//   | 'Exercise'
+//   | 'Swimming'
+//   | 'Walking'
+//   | 'Playing',
+// ];
