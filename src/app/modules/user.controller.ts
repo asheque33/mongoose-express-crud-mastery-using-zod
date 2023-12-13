@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import { userServices } from './user.service';
 
@@ -13,7 +14,7 @@ const createUser = async (req: Request, res: Response) => {
       message: 'User created successfully',
       data: result,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
   }
 };
@@ -26,7 +27,7 @@ const getAllUsers = async (req: Request, res: Response) => {
       message: 'All Users fetched successfully',
       data: result,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
   }
 };
@@ -40,7 +41,7 @@ const getSingleUser = async (req: Request, res: Response) => {
       message: 'Single user fetched successfully',
       data: result,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
   }
 };
@@ -55,7 +56,7 @@ const updateSingleUser = async (req: Request, res: Response) => {
       message: 'Single user updated successfully',
       data: result,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
   }
 };
@@ -68,7 +69,7 @@ const deleteSingleUser = async (req: Request, res: Response) => {
       success: true,
       message: 'Single user deleted successfully',
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
   }
 };
