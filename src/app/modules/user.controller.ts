@@ -63,7 +63,7 @@ const updateSingleUser = async (req: Request, res: Response) => {
   try {
     const id = req.params.userId;
     const individualId = parseInt(id);
-    const userData = req.body;
+    const { user: userData } = req.body;
     console.log(individualId, userData);
     const result = await userServices.updateSingleUserFromDB(
       individualId,
@@ -71,7 +71,7 @@ const updateSingleUser = async (req: Request, res: Response) => {
     );
     res.status(200).json({
       success: true,
-      message: 'Single user updated successfully',
+      message: 'User updated successfully',
       data: result,
     });
   } catch (error: any) {
