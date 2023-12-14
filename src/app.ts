@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 //application routes
-app.use('/api', userRouter);
+app.use('/api/users', userRouter);
 
 app.get('/', (req: Request, res: Response) => {
   const a = 35;
