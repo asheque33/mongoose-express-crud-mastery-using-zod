@@ -64,6 +64,7 @@ const updateSingleUser = async (req: Request, res: Response) => {
     const id = req.params.userId;
     const individualId = parseInt(id);
     const userData = req.body;
+    console.log(individualId, userData);
     const result = await userServices.updateSingleUserFromDB(
       individualId,
       userData,
@@ -87,6 +88,7 @@ const deleteSingleUser = async (req: Request, res: Response) => {
     const id = req.params.userId;
     const individualId = parseInt(id);
     await userServices.deleteSingleUserFromDB(individualId);
+    console.log('Deleted User Id is :', individualId);
     res.status(200).json({
       success: true,
       message: 'Single user deleted successfully',

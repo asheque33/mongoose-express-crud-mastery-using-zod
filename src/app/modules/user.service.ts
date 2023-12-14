@@ -16,11 +16,11 @@ const getSingleUserFromDB = async (userId: number) => {
   return result;
 };
 const updateSingleUserFromDB = async (userId: number, user: normalUser) => {
-  const result = await User.findByIdAndUpdate(userId, user);
+  const result = await User.findOneAndUpdate({ userId }, user);
   return result;
 };
 const deleteSingleUserFromDB = async (userId: number) => {
-  const result = await User.findByIdAndDelete(userId);
+  const result = await User.findOneAndDelete({ userId });
   return result;
 };
 
