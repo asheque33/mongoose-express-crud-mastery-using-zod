@@ -1,8 +1,8 @@
 import { User } from './user.Model';
-import { normalUser } from './user.interface';
+import { IUser } from './user.interface';
 
-const createUserIntoDB = async (user: normalUser) => {
-  // database query runs on mongoose model namely:User
+const createUserIntoDB = async (user: IUser) => {
+  // // database query runs on mongoose model namely:User
   const result = await User.create(user);
   return result;
 };
@@ -12,17 +12,27 @@ const getUsersFromDB = async () => {
   return result;
 };
 const getSingleUserFromDB = async (userId: number) => {
+  const b = await User.isExistsUserId(userId);
+  if (!b) {
+    return 'User not found';
+  }
+
   const result = await User.findOne({ userId });
   return result;
 };
-const updateSingleUserFromDB = async (
-  userId: number,
-  user: normalUser,
-): Promise<normalUser | null> => {
+const updateSingleUserFromDB = async (userId: number, user: IUser) => {
+  const b = await User.isExistsUserId(userId);
+  if (!b) {
+    return 'User not found';
+  }
   const result = await User.findOneAndReplace({ userId }, user);
   return result;
 };
 const deleteSingleUserFromDB = async (userId: number) => {
+  const b = await User.isExistsUserId(userId);
+  if (!b) {
+    return 'User not found';
+  }
   const result = await User.findOneAndDelete({ userId });
   return result;
 };

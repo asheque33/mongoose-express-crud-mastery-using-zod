@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import { userServices } from './user.service';
+import userValidationSchema from './user.validation';
 
 //NB: UserController call only req and res ;
 
@@ -8,7 +9,10 @@ import { userServices } from './user.service';
 const createUser = async (req: Request, res: Response) => {
   try {
     const { user: userData } = req.body;
-    const result = await userServices.createUserIntoDB(userData);
+    // userSchema validation using zod
+    const zodParsedData = userValidationSchema.parse(userData);
+
+    const result = await userServices.createUserIntoDB(zodParsedData);
     res.status(201).json({
       success: true,
       message: 'User created successfully',
@@ -19,6 +23,7 @@ const createUser = async (req: Request, res: Response) => {
     res.status(500).json({
       status: 'failed',
       message: error.message || 'User creation failed',
+      error: error,
     });
   }
 };
@@ -36,6 +41,7 @@ const getAllUsers = async (req: Request, res: Response) => {
     res.status(500).json({
       status: 'failed',
       message: error.message || 'Users fetched failed',
+      error: error,
     });
   }
 };
@@ -55,6 +61,7 @@ const getSingleUser = async (req: Request, res: Response) => {
     res.status(500).json({
       status: 'failed',
       message: error.message || 'User fetched failed',
+      error: error,
     });
   }
 };
@@ -79,6 +86,7 @@ const updateSingleUser = async (req: Request, res: Response) => {
     res.status(500).json({
       status: 'failed',
       message: error.message || 'User update failed',
+      error: error,
     });
   }
 };
@@ -98,6 +106,7 @@ const deleteSingleUser = async (req: Request, res: Response) => {
     res.status(500).json({
       status: 'failed',
       message: error.message || 'Something went wrong deleting the user',
+      error: error,
     });
   }
 };
