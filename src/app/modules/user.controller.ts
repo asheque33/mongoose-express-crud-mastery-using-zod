@@ -95,11 +95,12 @@ const deleteSingleUser = async (req: Request, res: Response) => {
   try {
     const id = req.params.userId;
     const individualId = parseInt(id);
-    await userServices.deleteSingleUserFromDB(individualId);
+    const result = await userServices.deleteSingleUserFromDB(individualId);
     console.log('Deleted User Id is :', individualId);
     res.status(200).json({
       success: true,
       message: 'Single user deleted successfully',
+      data: null || result,
     });
   } catch (error: any) {
     console.log(error);

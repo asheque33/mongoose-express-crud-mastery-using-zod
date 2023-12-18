@@ -25,7 +25,7 @@ const updateSingleUserFromDB = async (userId: number, user: IUser) => {
   if (!b) {
     return 'User not found';
   }
-  const result = await User.findOneAndReplace({ userId }, user);
+  const result = await User.updateOne({ userId }, user);
   return result;
 };
 const deleteSingleUserFromDB = async (userId: number) => {
@@ -33,7 +33,7 @@ const deleteSingleUserFromDB = async (userId: number) => {
   if (!b) {
     return 'User not found';
   }
-  const result = await User.findOneAndDelete({ userId });
+  const result = await User.updateOne({ userId }, { isDeleted: true });
   return result;
 };
 
