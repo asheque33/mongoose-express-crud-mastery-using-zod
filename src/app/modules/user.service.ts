@@ -25,7 +25,10 @@ const updateSingleUserFromDB = async (userId: number, user: IUser) => {
   if (!b) {
     return 'User not found';
   }
-  const result = await User.updateOne({ userId }, user);
+  const result = await User.findOneAndUpdate({ userId }, user, {
+    new: true,
+    runValidators: true,
+  });
   return result;
 };
 const deleteSingleUserFromDB = async (userId: number) => {

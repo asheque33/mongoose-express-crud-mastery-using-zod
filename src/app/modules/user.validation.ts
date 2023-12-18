@@ -30,7 +30,6 @@ const userValidationSchema = z.object({
   hobbies: z.array(z.string().min(1)),
   address: addressValidationSchema,
   orders: z.array(orderValidationSchema).optional(),
-  isUpdated: z.boolean().optional(),
   isDeleted: z.boolean().optional(),
 });
 

@@ -56,7 +56,6 @@ const userSchema = new Schema<IUser, UserModel>({
   hobbies: [String],
   address: addressSchema,
   orders: [ordersSchema],
-  isUpdated: { type: Boolean, default: false },
   isDeleted: { type: Boolean, default: false },
 });
 
@@ -76,7 +75,6 @@ userSchema.set('toJSON', {
   transform: function (updatedDoc, user) {
     delete user.password;
     delete user.isDeleted;
-    delete user.isUpdated;
     delete user._id;
     delete user.orders;
     delete user.__v;

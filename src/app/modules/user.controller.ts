@@ -70,7 +70,7 @@ const updateSingleUser = async (req: Request, res: Response) => {
   try {
     const id = req.params.userId;
     const individualId = parseInt(id);
-    const { user: userData } = req.body;
+    const userData = req.body;
     console.log(individualId, userData);
     const result = await userServices.updateSingleUserFromDB(
       individualId,
