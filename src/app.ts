@@ -11,10 +11,14 @@ app.use(cors());
 //application routes
 app.use('/api/users', userRouter);
 
-app.get('/', (req: Request, res: Response) => {
-  const a = 35;
-  res.send(a);
-});
+const getAController = (req: Request, res: Response) => {
+  res.status(200).json({
+    success: true,
+    message: 'Welcome to the Localhost API!',
+  });
+};
+app.get('/', getAController);
+
 console.log(process.cwd());
 
 export default app;

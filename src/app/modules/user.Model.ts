@@ -58,7 +58,6 @@ const userSchema = new Schema<IUser, UserModel>({
   orders: [ordersSchema],
   isDeleted: { type: Boolean, default: false },
 });
-
 // pre middleware hook will work on create() / save()
 userSchema.pre('save', async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
@@ -113,11 +112,16 @@ userSchema.pre('findOne', async function (next) {
   });
   next();
 });
-// query for 'delete a User'
-userSchema.pre('updateOne', function (next) {
-  this.find({ isUpdated: { $ne: true } });
-  next();
-});
+
+// // query for 'orders' From single user
+// userSchema.pre('findOne', async function (this: Query<IUser, Document>, next) {
+//   this.find({ $isDeleted: { $ne: true } });
+//   this.projection({
+//     orders: 1,
+//     _id: 0,
+//   });
+//   next();
+// });
 
 // static method
 userSchema.statics.isExistsUserId = async function (userId: number) {

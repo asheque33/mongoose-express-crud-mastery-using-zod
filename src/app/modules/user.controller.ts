@@ -111,6 +111,49 @@ const deleteSingleUser = async (req: Request, res: Response) => {
     });
   }
 };
+// To update orders of a user
+const updateUserOrders = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.userId;
+    const individualId = parseInt(id);
+    const userOrders = req.body;
+    console.log(individualId, userOrders);
+    await userServices.updateSingleUserFromDB(individualId, userOrders);
+    res.status(200).json({
+      success: true,
+      message: 'Orders created successfully',
+      data: null,
+    });
+  } catch (error: any) {
+    console.log(error);
+    res.status(500).json({
+      status: 'failed',
+      message: error.message || 'User not found',
+      error: error,
+    });
+  }
+};
+// To get all orders from a single user
+// const getOrdersFromSingleUser = async (req: Request, res: Response) => {
+//   try {
+//     const id = req.params.userId;
+//     const individualId = parseInt(id);
+//     console.log(individualId);
+//     const result = await userServices.getSingleAllOrdersFromDB(individualId);
+//     res.status(200).json({
+//       success: true,
+//       message: 'Orders fetched successfully',
+//       data: result,
+//     });
+//   } catch (error: any) {
+//     console.log(error);
+//     res.status(500).json({
+//       status: 'failed',
+//       message: error.message || 'User not found',
+//       error: error,
+//     });
+//   }
+// };
 
 export const userController = {
   createUser,
@@ -118,4 +161,6 @@ export const userController = {
   getSingleUser,
   updateSingleUser,
   deleteSingleUser,
+  updateUserOrders,
+  // getOrdersFromSingleUser,
 };
