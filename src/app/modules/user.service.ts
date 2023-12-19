@@ -52,26 +52,18 @@ const updateUserOrdersFromDB = async (userId: number, orders: userOrders) => {
   return result;
 };
 // all orders of a single user from the database
-// const getSingleAllOrdersFromDB = async (userId: number) => {
-//   const b = await User.isExistsUserId(userId);
-//   if (!b) {
-//     return 'User not found';
-//   }
+const getSingleAllOrdersFromDB = async (userId: number) => {
+  const b = await User.isExistsUserId(userId);
+  if (!b) {
+    return 'User not found';
+  }
 
-//   const result = await User.findOne({ userId });
-//   return result;
-// };
-// const updateSingleUserFromDB = async (userId: number, user: IUser) => {
-//   const b = await User.isExistsUserId(userId);
-//   if (!b) {
-//     return 'User not found';
-//   }
-//   const result = await User.findOneAndUpdate({ userId }, user, {
-//     new: true,
-//     runValidators: true,
-//   });
-//   return result;
-// };
+  const result = await User.aggregate([
+    { $match: { userId: userId } },
+    { $project: { orders: 1, _id: 0 } },
+  ]);
+  return result;
+};
 
 export const userServices = {
   createUserIntoDB,
@@ -80,5 +72,5 @@ export const userServices = {
   updateSingleUserFromDB,
   deleteSingleUserFromDB,
   updateUserOrdersFromDB,
-  // getSingleAllOrdersFromDB,
+  getSingleAllOrdersFromDB,
 };

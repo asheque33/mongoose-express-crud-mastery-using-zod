@@ -113,16 +113,6 @@ userSchema.pre('findOne', async function (next) {
   next();
 });
 
-// // query for 'orders' From single user
-// userSchema.pre('findOne', async function (this: Query<IUser, Document>, next) {
-//   this.find({ $isDeleted: { $ne: true } });
-//   this.projection({
-//     orders: 1,
-//     _id: 0,
-//   });
-//   next();
-// });
-
 // static method
 userSchema.statics.isExistsUserId = async function (userId: number) {
   try {
