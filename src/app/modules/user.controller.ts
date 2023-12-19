@@ -154,6 +154,36 @@ const getOrdersFromSingleUser = async (req: Request, res: Response) => {
     });
   }
 };
+// To get total price of orders of a single user
+const getTotalPriceOfSingleUserOrders = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.userId;
+    const individualId = parseInt(id);
+    const user = req.body.user;
+    const totalPrice = (user.orders || []).reduce(
+      (total: number, order: { price: number; quantity: number }) =>
+        total + (order.price || 0) * (order.quantity || 0),
+      0,
+    );
+    console.log(individualId, totalPrice);
+    const result = await userServices.getTotalPriceOrdersFromDB(
+      individualId,
+      totalPrice,
+    );
+    res.status(200).json({
+      success: true,
+      message: 'Orders fetched successfully',
+      data: result,
+    });
+  } catch (error: any) {
+    console.log(error);
+    res.status(500).json({
+      status: 'failed',
+      message: error.message || 'User not found',
+      error: error,
+    });
+  }
+};
 
 export const userController = {
   createUser,
@@ -163,4 +193,5 @@ export const userController = {
   deleteSingleUser,
   updateUserOrders,
   getOrdersFromSingleUser,
+  getTotalPriceOfSingleUserOrders,
 };

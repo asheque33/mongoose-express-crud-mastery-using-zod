@@ -64,6 +64,18 @@ const getSingleAllOrdersFromDB = async (userId: number) => {
   ]);
   return result;
 };
+const getTotalPriceOrdersFromDB = async (userId: number, user: IUser) => {
+  const b = await User.isExistsUserId(userId);
+  if (!b) {
+    return 'User not found';
+  }
+
+  const result = await User.findOne({ userId }, user, {
+    new: true,
+    runValidators: true,
+  });
+  return 'total price orders: ' + result;
+};
 
 export const userServices = {
   createUserIntoDB,
@@ -73,4 +85,5 @@ export const userServices = {
   deleteSingleUserFromDB,
   updateUserOrdersFromDB,
   getSingleAllOrdersFromDB,
+  getTotalPriceOrdersFromDB,
 };
