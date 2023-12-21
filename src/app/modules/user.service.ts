@@ -9,6 +9,7 @@ const createUserIntoDB = async (user: IUser) => {
 const getUsersFromDB = async () => {
   // database query runs on mongoose model namely:User;
   const result = await User.find();
+  console.log(result);
   return result;
 };
 const getSingleUserFromDB = async (userId: number) => {

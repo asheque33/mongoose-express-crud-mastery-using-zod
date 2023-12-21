@@ -8,9 +8,9 @@ import userValidationSchema from './user.validation';
 //To create a new user data
 const createUser = async (req: Request, res: Response) => {
   try {
-    const { user: userData } = req.body;
+    const user = req.body;
     // userSchema validation using zod
-    const zodParsedData = userValidationSchema.parse(userData);
+    const zodParsedData = userValidationSchema.parse(user);
 
     const result = await userServices.createUserIntoDB(zodParsedData);
     res.status(201).json({
@@ -95,12 +95,12 @@ const deleteSingleUser = async (req: Request, res: Response) => {
   try {
     const id = req.params.userId;
     const individualId = parseInt(id);
-    const result = await userServices.deleteSingleUserFromDB(individualId);
+    await userServices.deleteSingleUserFromDB(individualId);
     console.log('Deleted User Id is :', individualId);
     res.status(200).json({
       success: true,
       message: 'Single user deleted successfully',
-      data: null || result,
+      data: null,
     });
   } catch (error: any) {
     console.log(error);
@@ -159,7 +159,7 @@ const getTotalPriceOfSingleUserOrders = async (req: Request, res: Response) => {
   try {
     const id = req.params.userId;
     const individualId = parseInt(id);
-    const user = req.body.user;
+    const user = req.body;
     const totalPrice = (user.orders || []).reduce(
       (total: number, order: { price: number; quantity: number }) =>
         total + (order.price || 0) * (order.quantity || 0),
